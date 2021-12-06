@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+  <!-- template insertion -->
+  <%- include('../includes/iHead.ejs') %>
+
+  <body>
+    <!-- template insertion -->
+    <%- include('../includes/iNav.ejs') %>
+
+    <main>
+      <!-- data passed via 'flash' when redirected -->
+      <% if (errorMessage) { %>
+      <div class="user-message user-message--error"><%= errorMessage %></div>
+      <% } %>
+
+      <form class="login-form">
+        <div class="form-control">
+          <label for="email">E-Mail</label>
+          <input type="email" name="email" id="post-email" />
+        </div>
+        <div class="form-control">
+          <label for="password">Password</label>
+          <input type="password" name="password" id="post-pass" />
+        </div>
+        <!-- 'type=button' stops automatic form submit -->
+        <!-- AJAX call has special 'csrf' header -->
+        <button type="button" class="btn" onclick="testPOST2('/login')">
+          Login
+        </button>
+      </form>
+    </main>
+  </body>
+</html>

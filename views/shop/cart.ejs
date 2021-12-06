@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+  <!-- template insertion -->
+  <%- include('../includes/iHead.ejs') %>
+
+  <body>
+    <!-- template insertion -->
+    <%- include('../includes/iNav.ejs') %>
+
+    <main>
+      <!-- code from templating engine -->
+      <% if (products.length > 0) { %>
+
+      <ul>
+        <!-- code from templating engine -->
+        <% products.forEach(p => { %>
+        <!-- code from templating engine -->
+        <li>
+          <!-- sequelize stores data from assoc. tables ("cartitem") -->
+          <p><%= p.title %> ( <%= p.quantity %> )</p>
+          <!-- <form action="/cart-del-item" method="POST">
+            <button class="btn" type="submit">DELETE</button>
+          </form> -->
+
+          <!-- here "_id" is a converted 'productId' -->
+          <button
+            class="btn"
+            onclick="deletePOST('<%= p._id %>','/cart-del-item','/cart')"
+          >
+            DELETE
+          </button>
+        </li>
+        <% }) %>
+      </ul>
+
+      <!-- code from templating engine -->
+      <% } else { %>
+      <h1>Cart is empty...</h1>
+      <!-- code from templating engine -->
+      <% } %>
+      <br />
+      <hr />
+      <h2>Total Price : $<%= totalPrice %></h2>
+      <hr />
+      <a href="/cart-reset">RESET/CLEAR CART</a>
+      <br />
+      <a href="/cart/<%= JSON.stringify(products) %>?price=<%= totalPrice %>"
+        >SENT SUMMARY AS EMAIL</a
+      >
+    </main>
+  </body>
+</html>
