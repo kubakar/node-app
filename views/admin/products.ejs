@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+  <!-- template insertion -->
+  <%- include('../includes/iHead.ejs') %>
+
+  <body>
+    <!-- template insertion -->
+    <%- include('../includes/iNav.ejs') %>
+
+    <main>
+      <h2>All products</h2>
+      <!-- code from templating engine -->
+      <% if (prods.length > 0) { %>
+
+      <div class="grid">
+        <!-- code from templating engine -->
+        <% prods.forEach(el => { %>
+
+        <article class="card product-item master">
+          <header class="card__header">
+            <!-- code from templating engine -->
+            <h1 class="product__title"><%= el.title %></h1>
+          </header>
+          <div class="card__image">
+            <img src="/images/book_image.png" alt="A Book" />
+          </div>
+          <div class="card__content">
+            <h2 class="product__price">$<%= el.price %></h2>
+            <p class="product__description"><%= el.description %></p>
+          </div>
+          <div class="card__actions">
+            <!-- add query parameter -->
+            <a
+              href="/admin/edit-product/<%= el._id %>?editme=true&price=<%= el.price %>"
+              class="btn"
+              >INCR. PRICE</a
+            >
+
+            <!-- <button
+              class="btn"
+              onclick="deletePOST('<%= el._id %>','/admin/del-product','/admin/products')"
+            >
+              DELETE
+            </button> -->
+
+            <button
+              class="btn danger"
+              onclick="deleteProductAlt(this,'<%=el._id%>', '/admin/product/')"
+            >
+              DELETE
+            </button>
+
+            <% if (el.userId) { %>
+            <hr />
+            <p>Added by : <%= el.userId.email %></p>
+            <% } %>
+            <!-- data populated with mongoose -->
+          </div>
+        </article>
+
+        <!-- code from templating engine -->
+        <% }) // close 'forEach' loop %>
+      </div>
+
+      <!-- code from templating engine -->
+      <% } else { %>
+      <h1>No Products Added!</h1>
+      <!-- code from templating engine -->
+      <% } // close 'if' statement %>
+      <hr />
+      <a href="/trigger">TRIGGER ERROR</a>
+      <br />
+      <br />
+      <a href="/cart-invoice-stream">DOWNLOAD PDF (STREAM)</a>
+    </main>
+
+    <!-- add client JS -->
+    <script src="/js/admin.js"></script>
+  </body>
+</html>

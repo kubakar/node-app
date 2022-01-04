@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+  <!-- template insertion -->
+  <%- include('../includes/iHead.ejs',{csrfToken: csrfToken}) %>
+
+  <body>
+    <!-- template insertion -->
+    <%- include('../includes/iNav.ejs') %>
+
+    <main>
+      <!-- code from templating engine -->
+      <% if (prods.length > 0) { %>
+
+      <div class="grid">
+        <!-- code from templating engine -->
+        <% prods.forEach(product => { %>
+
+        <article class="card product-item">
+          <header class="card__header">
+            <!-- code from templating engine -->
+            <h1 class="product__title"><%= product.title %></h1>
+          </header>
+          <div class="card__image">
+            <img src="/images/book_image.png" alt="A Book" />
+          </div>
+          <div class="card__content">
+            <h2 class="product__price">$<%= product.price %></h2>
+            <p class="product__description"><%= product.description %></p>
+          </div>
+          <% if (isAuthenticated) { %>
+          <div class="card__actions">
+            <a href="/products/<%= product._id %>" class="btn">Details</a>
+
+            <%- include('../includes/iAddToCart.ejs', {product: product}) %>
+          </div>
+          <% } %>
+        </article>
+
+        <!-- code from templating engine -->
+        <% }) // close 'forEach' loop %>
+      </div>
+
+      <!--       
+      <section class="pagination">
+        <% if (currentPage !== 1 && (currentPage-1) !== 1) { %>
+        <a href="/?page=1">1</a>
+        <% } if (hasPrevPage) { %>
+        <a href="/?page=<%= currentPage - 1 %>"> <%= currentPage - 1 %> </a>
+        <% } %>
+        <a href="/?page=<%= currentPage %>" class="active">
+          <%= currentPage %>
+        </a>
+        <% if (hasNextPage) { %>
+        <a href="/?page=<%= currentPage + 1 %>"> <%= currentPage + 1 %> </a>
+        <% } if (currentPage !== lastPage && (currentPage+1) !== lastPage) { %>
+        <a href="/?page=<%= lastPage %>"> <%= lastPage %> </a>
+        <% } %>
+      </section> 
+      -->
+
+      <%- include('../includes/pagination.ejs', {currentPage: currentPage,
+      hasPrevPage: hasPrevPage, hasNextPage: hasNextPage}) %>
+
+      <!-- code from templating engine -->
+      <% } else { %>
+      <h1>No Products Added!</h1>
+      <!-- code from templating engine -->
+      <% } // close 'if' statement %>
+    </main>
+  </body>
+</html>

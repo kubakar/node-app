@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+  <!-- template insertion -->
+  <%- include('../includes/iHead.ejs') %>
+
+  <body>
+    <!-- template insertion -->
+    <%- include('../includes/iNav.ejs') %>
+
+    <main>
+      <!-- code from templating engine -->
+      <% if (products.length > 0) { %>
+
+      <ul class="cart__item-list">
+        <!-- code from templating engine -->
+        <% products.forEach(p => { %>
+        <!-- code from templating engine -->
+        <li class="cart__item master">
+          <!-- sequelize stores data from assoc. tables ("cartitem") -->
+          <h2><%= p.title %> ( <%= p.quantity %> )</h2>
+
+          <!-- here "_id" is a converted 'productId' -->
+          <!-- 
+          <button
+            class="btn danger"
+            onclick="deletePOST('<%= p._id %>','/cart-del-item','/cart')"
+          >
+            DELETE
+          </button>
+           -->
+
+          <button
+            class="btn danger"
+            onclick="deleteProductAlt(this,'<%=p._id%>','/cart-item/', '/cart')"
+          >
+            DELETE
+          </button>
+        </li>
+        <% }) %>
+      </ul>
+
+      <!-- code from templating engine -->
+      <% } else { %>
+      <h1>Cart is empty...</h1>
+      <!-- code from templating engine -->
+      <% } %>
+      <br />
+      <hr />
+
+      <% if (products.length > 0) { %>
+      <div class="centered">
+        <form action="/create-order" method="POST">
+          <input type="hidden" name="_csrf" value="<%= csrfToken %>" />
+          <button type="submit" class="btn">Order Now</button>
+        </form>
+      </div>
+      <% } %>
+
+      <h2>Total Price : $<%= totalPrice %></h2>
+      <hr />
+      <br />
+      <a href="/cart-reset">RESET/CLEAR CART</a>
+      <br />
+      <a href="/cart/<%= JSON.stringify(products) %>?price=<%= totalPrice %>"
+        >SENT SUMMARY AS EMAIL</a
+      >
+    </main>
+
+    <!-- add client JS -->
+    <script src="/js/admin.js"></script>
+  </body>
+</html>
