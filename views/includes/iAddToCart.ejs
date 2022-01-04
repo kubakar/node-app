@@ -1,8 +1,0 @@
-<form action="/cart" method="POST">
-  <input type="hidden" name="_csrf" value="<%= csrfToken %>" />
-
-  <button class="btn" type="submit">Add To Cart</button>
-  <!-- standard HTML form with POST request -->
-  <!-- trick! use hidden input to pass some fixed data in req. body -->
-  <input type="hidden" name="productId" value="<%= product._id %>" />
-</form>
