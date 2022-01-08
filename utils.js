@@ -72,7 +72,7 @@ module.exports = {
       // escape clause
       if (error) return console.log(error);
 
-      utils.log("Email sent: " + info.response);
+      console.log("Email sent: " + info.response);
     });
   },
 };
