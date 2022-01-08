@@ -55,7 +55,6 @@ module.exports = {
       secure: true,
       auth: {
         user: senderEmail,
-        // pass: "gsvoscjyviyeutbl", // "app pass"
         pass: authData.gmailPass, // "app pass"
       },
     });
