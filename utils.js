@@ -70,7 +70,7 @@ module.exports = {
     // send email
     transporter.sendMail(mailOptions, function (error, info) {
       // escape clause
-      if (error) return utils.err(error);
+      if (error) return console.log(error);
 
       utils.log("Email sent: " + info.response);
     });
