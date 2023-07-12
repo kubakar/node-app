@@ -19,10 +19,6 @@ const path = require("path"); // detects Win/Linux directories structure (/ or \
 // Mongoose
 const mongoose = require("mongoose");
 
-// connect with DB via mongoose
-// const pass = "UDEmtds999";
-// const cluster = "Cluster0";
-
 const { pass, cluster } = authData.mongoPass;
 utils.log(pass);
 utils.log(cluster);
